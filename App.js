@@ -1,81 +1,135 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View, TouchableWithoutFeedback, TouchableOpacity, Image, SafeAreaView } from 'react-native';
-import Login from './src/screens/Login'
-import Signup from './src/screens/Signup'
-
-import Icon from 'react-native-vector-icons/FontAwesome'
-
-const myIcon = <Icon name='home' />
+import React from "react";
+import { Text } from "react-native";
+// import { createBottomTabNavigator, createAppContainer } from "@react-navigation/bottom-tabs";
+import styles from "./assets/styles";
+import HomeScreen from "./src/containers/Home";
+import MatchesScreen from "./src/containers/Matches";
+import MessagesScreen from "./src/containers/Messages";
+import ProfileScreen from "./src/containers/Profile";
+import Icon from "./src/components/Icon";
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import Profile from './src/containers/Profile';
 
-import AppNavigator from './src/navigation/AppNavigator'
+const App = createBottomTabNavigator()
 
-const Tab = createBottomTabNavigator()
+function MyTabs(props) {
+  return (
+    <NavigationContainer>
+      <App.Navigator>
+        <App.Screen name='Home'>
+          {(props) => (
+            <HomeScreen 
+              // {...props}
+              // currentUser={currentUser}
+              // logoutHandler={logoutHandler}
+            />
+          )}
+        </App.Screen>
+        <App.Screen name='Matches'>
+          {(props) => (
+            <MatchesScreen 
 
-class App extends React.Component {
-
-  state = {
-    store: false 
-  }
-
-
-  handlePress = () => {
-    this.setState({
-      store: !this.state.store
-    })
-  }
-
-  render() {
-    return (
-      <AppNavigator />
-    )
-  }
+            />
+          )}
+        </App.Screen>
+        <App.Screen name='Chat'>
+          {(props) => (
+            <MessagesScreen 
+              
+            />
+          )}
+        </App.Screen>
+        <App.Screen name='User'>
+          {(props) => (
+            <ProfileScreen 
+              
+            />
+          )}
+        </App.Screen>
+      </App.Navigator>
+    </NavigationContainer>
+  )
 }
 
-export default App
+export default MyTabs
+// 	{
+// 		Explore: {
+// 			screen: HomeScreen,
+// 			navigationOptions: {
+// 				tabBarIcon: ({ focused }) => {
+// 					const iconFocused = focused ? "#7444C0" : "#363636";
+// 					return (
+// 						<Text style={[styles.iconMenu, { color: iconFocused }]}>
+// 							<Icon name="explore" />
+// 						</Text>
+// 					);
+// 				}
+// 			}
+// 		},
+// 		Matches: {
+// 			screen: MatchesScreen,
+// 			navigationOptions: {
+// 				tabBarIcon: ({ focused }) => {
+// 					const iconFocused = focused ? "#7444C0" : "#363636";
+// 					return (
+// 						<Text style={[styles.iconMenu, { color: iconFocused }]}>
+// 							<Icon name="heart" />
+// 						</Text>
+// 					);
+// 				}
+// 			}
+// 		},
+// 		Chat: {
+// 			screen: MessagesScreen,
+// 			navigationOptions: {
+// 				tabBarIcon: ({ focused }) => {
+// 					const iconFocused = focused ? "#7444C0" : "#363636";
+// 					return (
+// 						<Text style={[styles.iconMenu, { color: iconFocused }]}>
+// 							<Icon name="chat" />
+// 						</Text>
+// 					);
+// 				}
+// 			}
+// 		},
+// 		Profile: {
+// 			screen: ProfileScreen,
+// 			navigationOptions: {
+// 				tabBarIcon: ({ focused }) => {
+// 					const iconFocused = focused ? "#7444C0" : "#363636";
+// 					return (
+// 						<Text style={[styles.iconMenu, { color: iconFocused }]}>
+// 							<Icon name="user" />
+// 						</Text>
+// 					);
+// 				}
+// 			}
+// 		}
+// 	},
+// 	{
+// 		tabBarOptions: {
+// 			activeTintColor: "#7444C0",
+// 			inactiveTintColor: "#363636",
+// 			labelStyle: {
+// 				fontSize: 14,
+// 				textTransform: "uppercase",
+// 				paddingTop: 10
+// 			},
+// 			style: {
+// 				backgroundColor: "#FFF",
+// 				borderTopWidth: 0,
+// 				paddingVertical: 30,
+// 				height: 60,
+// 				marginBottom: 0,
+// 				shadowOpacity: 0.05,
+// 				shadowRadius: 10,
+// 				shadowColor: "#000",
+// 				shadowOffset: { height: 0, width: 0 }
+// 			}
+// 		}
+// 	}
 
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
-{/* <NavigationContainer>
-  <SafeAreaView style={styles.container}>
-    <Text onPress={this.handlePress}>Hello World!</Text>
-    <Text>My name is Ayan</Text>
-    <Text>And this is my application!</Text>
-    <Image source={require('./assets/icon.png')} />
-    <TouchableOpacity
-      onPress={() => console.log('Touched!')}
-    >
-      <Image
-        source={{
-          width: 200,
-          height: 300,
-          uri: 'https://picsum.photos/200/300'
-        }} 
-      />
-    </TouchableOpacity>
-    {this.state.store ? 
-      <Text>You touched Text</Text>
-      :
-      null
-    }
-    <StatusBar style="auto" />
-  </SafeAreaView>
-
-  <Tab.Navigator>
-    <Tab.Screen name='Home' component={Login} />
-    <Tab.Screen name='Settings' component={Signup} />
-  </Tab.Navigator>
-
-</NavigationContainer> */}
+// export default createAppContainer(App);
